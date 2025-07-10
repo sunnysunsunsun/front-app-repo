@@ -1,4 +1,6 @@
-import { NavLink, useLocation, useEffect } from 'react-router'
+import { NavLink, useLocation, useNavigate } from 'react-router'
+import { useEffect, useState } from 'react'
+import Button from '@/components/Button'
 
 const navigations = [
   { to: '/', label: 'Home' },
@@ -9,11 +11,25 @@ const navigations = [
 ]
 
 export default function Header() {
-  const token = localStorage.getItem('token')
+  const [token, setToken] = useState<string | null>(null)
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    setToken(localStorage.getItem('token'))
+  }, [location])
+
+  function signOut() {
+    localStorage.removeItem('token')
+    navigate('/')
+    window.location.reload()
+  }
   return (
     <header>
       <nav className="flex items-center gap-2">
         {navigations.map(nav => {
+          const isSignIn = nav.to === '/signin'
+          if (isSignIn && token) return null
           return (
             <NavLink
               key={nav.to}
@@ -26,6 +42,7 @@ export default function Header() {
             </NavLink>
           )
         })}
+        {token && <Button onClick={signOut}>로그아웃</Button>}
       </nav>
     </header>
   )
