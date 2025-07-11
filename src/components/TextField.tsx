@@ -2,6 +2,7 @@ export default function TextField({
   label,
   ...restProps
 }: {
+  ref?: React.RefObject<HTMLInputElement | null>
   label?: string
 } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (

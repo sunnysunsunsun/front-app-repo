@@ -7,6 +7,7 @@ const navigations = [
   { to: '/about', label: 'About' },
   { to: '/movies', label: 'Movies' },
   { to: 'movies/tt3521164', label: 'Moana' },
+  { to: '/todos', label: 'Todos' },
   { to: '/signin', label: 'Sign In' }
 ]
 
